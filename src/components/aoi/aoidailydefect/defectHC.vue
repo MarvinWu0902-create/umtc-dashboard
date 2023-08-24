@@ -1,5 +1,10 @@
 <template>
-    <div ref="chart"></div>
+    <div class="position-relative border border-1">
+        <div ref="chart"></div>
+        <p v-show="radioItem === 'machine'" class="position-absolute top-0 start-50 p-translate fw-bold text-primary fs-8">
+            Avg:{{ (avgValue * 100).toFixed(2) + '%' }}
+        </p>
+    </div>
 </template>
 
 <script setup>
@@ -12,11 +17,11 @@ AnnotationsModule(Highcharts);
 
 import { UsedefectFetch } from '../../../stores/aoi/aoidailydefect/defectFetch.js';
 const usedefectfetch = UsedefectFetch(pinia);
-const { filterData, activeDefect, activeProcess, selectOptions,checkbarAry } = storeToRefs(usedefectfetch);
+const { filterData, activeDefect, activeProcess, selectOptions, checkbarAry } = storeToRefs(usedefectfetch);
 
 import { UsedefectHC } from '../../../stores/aoi/aoidailydefect/defectHCSet.js';
 const usedefecthc = UsedefectHC(pinia);
-const { defectAry, processAry, categoriesAry, defectStatus, processStatus, triggerVal, radioItem, machineAry,colorAry } = storeToRefs(usedefecthc);
+const { defectAry, processAry, categoriesAry, defectStatus, processStatus, triggerVal, radioItem, machineAry, colorAry } = storeToRefs(usedefecthc);
 
 import { UsedefectTable } from '../../../stores/aoi/aoidailydefect/defectTableSet.js'
 const usedefecttable = UsedefectTable(pinia);
@@ -36,8 +41,8 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    max:{
-        type:Array
+    max: {
+        type: Array
     }
 });
 
@@ -49,29 +54,32 @@ const props = defineProps({
 
 const chart = ref(null);
 
+console.log('456', props.max);
 
-
-// const maxVal=computed(()=>{
-
-//     if (props.process === '') {////單一站點(ex.SAPECU)
-//         if (props.machine === '') {///又沒點機台
-//             dealData = filterData.value.filter((item) => item[`Time${processAry.value[0]}`] !== ' ' && item[`Time${processAry.value[0]}`] !== null).sort((a, b) => Date.parse(a[`Time${processAry.value[0]}`]) - Date.parse(b[`Time${processAry.value[0]}`]));
-//         } else {///又點機台
-//             dealData = filterData.value.filter((item) => item[`Time${processAry.value[0]}`] !== ' ' && item[`Time${processAry.value[0]}`] !== null && item[`Machine${processAry.value[0]}`] === props.machine).sort((a, b) => Date.parse(a[`Time${processAry.value[0]}`]) - Date.parse(b[`Time${processAry.value[0]}`]));
-//         }
-//     } else {///多個站點
-//         if (props.machine === '') {///又沒點機台
-//             dealData = filterData.value.filter((item) => item[`Time${props.process}`] !== ' ' && item[`Time${props.process}`] !== null).sort((a, b) => Date.parse(a[`Time${props.process}`]) - Date.parse(b[`Time${props.process}`]));
-//         } else {///又點機台   *[PTHCUM1/PTHFCU1]*
-//             dealData = filterData.value.filter((item) => item[`Time${props.process}`] !== ' ' && item[`Time${props.process}`] !== null && item[`Machine${props.process}`] === props.machine).sort((a, b) => Date.parse(a[`Time${props.process}`]) - Date.parse(b[`Time${props.process}`]));
-//         }
-//     };
-
-//     return 
-// })
-///根據process 去分
-
-
+const avgValue = computed(() => {
+    if (props.process !== '' && props.machine !== '') {
+        return props.max.filter((item) => item.process === props.process)[0].data
+            .filter((item) => item.machine === props.machine)[0].data.avg
+    } else if (props.process === '' && props.machine !== '') {
+        return props.max[0].data
+            .filter((item) => item.machine === props.machine)[0].data.avg
+    }
+    // else if(props.process === '' && props.machine !== ''){
+    //     return 1
+    // }
+    // else if (props.process !== '' && props.machine === ''){
+    //     let tt=props.max.filter((item)=>item.process === props.process)[0].data;
+    //     console.log('tt',tt);
+    //     let sum=0;
+    //     let count=0;
+    //     tt.forEach((item)=>{
+    //         console.log('item.data.avg',item.data.avg);
+    //         sum+=item.data.avg;
+    //         count+=1;
+    //     });
+    //     return sum/count
+    // }
+});
 
 
 const seriesAry = computed(() => {
@@ -126,11 +134,11 @@ const seriesAry = computed(() => {
             });
         Obj.type = 'scatter';
         Obj.data = rate;
-        Obj.color = colorAry.value.filter((item)=>item.pn===pn)[0].color
+        Obj.color = colorAry.value.filter((item) => item.pn === pn)[0].color
         // pnObj.time = time;
         Obj.lot = lot;
         Obj.name = pn;
-        Obj.marker={symbol:'circle',radius:4,lineColor:'rgba(0,0,56,0.3)',lineWidth:2}
+        Obj.marker = { symbol: 'circle', radius: 3, lineColor: 'rgba(0,0,56,0.3)', lineWidth: 2 }
 
         container.push(Obj);
     });
@@ -144,18 +152,18 @@ const timeAry = computed(() => {
     if (props.process === '') {////單一站點(ex.SAPECU)
         if (props.machine === '') {///又沒點機台
 
-                return filterData.value
+            return filterData.value
                 .filter((item) => item[`Time${processAry.value[0]}`] !== ' ' && item[`Time${processAry.value[0]}`] !== null)
                 .sort((a, b) => Date.parse(a[`Time${processAry.value[0]}`]) - Date.parse(b[`Time${processAry.value[0]}`]))
                 .map((item) => item[`Time${processAry.value[0]}`]);
 
         } else {///又點機台
 
-                return filterData.value
+            return filterData.value
                 .filter((item) => item[`Time${processAry.value[0]}`] !== ' ' && item[`Time${processAry.value[0]}`] !== null && item[`Machine${processAry.value[0]}`] === props.machine)
                 .sort((a, b) => Date.parse(a[`Time${processAry.value[0]}`]) - Date.parse(b[`Time${processAry.value[0]}`]))
-                .map((item) => item[`Time${processAry.value[0]}`]) 
-            
+                .map((item) => item[`Time${processAry.value[0]}`])
+
         }
     } else {///多個站點
 
@@ -221,14 +229,11 @@ const markAry = computed(() => {
 });
 
 watchEffect(() => {
-    if (seriesAry.value.length>0 && triggerVal.value&&selectOptions.value.length>0&&markAry.value) {
+    if (seriesAry.value.length > 0 && triggerVal.value && selectOptions.value.length > 0 && markAry.value) {
         nextTick(() => {
-
-
             Highcharts.chart(chart.value, {
                 chart: {
                     type: 'line',
-                    
                     width: radioItem.value === 'machine' ? 300 : 1200,
                     height: radioItem.value === 'machine' ? 300 : 400,
                     zoomType: 'xy',
@@ -257,7 +262,7 @@ watchEffect(() => {
                     // layout:'vertical',
                     // align:'right',
                     // verticalAlign:'middle',
-                    enabled:false
+                    enabled: false
                 },
                 xAxis: {
                     type: 'category',
@@ -279,23 +284,13 @@ watchEffect(() => {
                             color: Highcharts.getOptions().colors[1]
                         }
                     },
-                    tickInterval:1,
-                    max:props.process!==''&&props.defect!==''
-                        ?props.max.filter((item)=>item.process===props.process&&item.defect===props.defect)[0].max[0]
-                        :props.process!==''&&props.defect===''////else if
-                        ?props.max.filter((item)=>item.process===props.process)[0].max
-                        :props.max[0].max
-                    
-                    // props.process===''&&props.defect===''///if
-                    //         ?props.max[0].max///else
-                    //             :props.process!==''&&props.defect===''
-                    //         ?props.max.filter((item)=>item.process===props.process).max
-                    //             :props.process!==''&&props.defect!==''
-                    //         ?props.max.filter((item)=>item.process===props.process&&item.defect===props.defect).max
-                    //         :
-
-                            // props.max.filter((item)=>item.process===props.process).max
-                        ,
+                    tickInterval: 0.5,
+                    max: props.process !== '' && props.defect !== ''
+                        ? props.max.filter((item) => item.process === props.process && item.defect === props.defect)[0].max[0] * 100
+                        : props.process !== '' && props.defect === ''////else if
+                            ? props.max.filter((item) => item.process === props.process)[0].max * 100
+                            : props.max[0].max * 100
+                    ,
                     plotLines: [
                         {
                             color: 'red',
@@ -315,7 +310,8 @@ watchEffect(() => {
                             dashStyle: 'ShortDash'
                         }
                     ]
-                }],
+                }
+                ],
                 tooltip: {
                     formatter: function () {
                         return `${this.x}<br><a style='color:${this.series.color}'>${this.series.name}</a>:${this.y.toFixed(2)}%<br><strong>${this.series.userOptions.lot[this.point.index]}</strong>`
@@ -333,4 +329,12 @@ watchEffect(() => {
 
 </script>
 
-<style  scoped></style>
+<style lang="scss" scoped>
+.fs-8 {
+    font-size: 8px;
+}
+
+.p-translate {
+    transform: translate(-50%, -100%) !important;
+}
+</style>

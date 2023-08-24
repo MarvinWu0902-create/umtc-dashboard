@@ -16,23 +16,23 @@
                 <tr>
                     <th>M</th>
                     <td>{{ dfG }}</td>
-                    <td>{{ SSG.toFixed(4)}}</td>
-                    <td>{{ MSG.toFixed(4) }}</td>
+                    <td>{{ SSG.toFixed(8)}}</td>
+                    <td>{{ MSG.toFixed(6) }}</td>
                     <td>{{ Fratio.toFixed(2) }}</td>
                     <td :class="{pfont:pValue.toFixed(4)<=0.05}">{{ pValue.toFixed(4) }}</td>
                 </tr>
                 <tr>
                     <th>Error</th>
                     <td>{{ dfW }}</td>
-                    <td>{{ SSW.toFixed(4) }}</td>
-                    <td>{{ MSW.toFixed(4) }}</td>
+                    <td>{{ SSW.toFixed(8) }}</td>
+                    <td>{{ MSW.toFixed(6) }}</td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
                     <th>C.Total</th>
                     <td>{{ dfG+dfW }}</td>
-                    <td></td>
+                    <td>{{ (SSG+SSW).toFixed(8) }}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -106,16 +106,21 @@ const dfW = computed(() => {
     fdata.value.data.forEach((item) => {
         sum += item.data.len
     });
+    console.log('sum',sum);
+    console.log('dfG.value',dfG.value);
     return sum - dfG.value - 1
 });
 
 
 const groupMean = computed(() => {
     let groupAvg = 0;
+    let length=0;
     fdata.value.data.forEach((item) => {
-        groupAvg += item.data.avg
+        groupAvg += item.data.avg*item.data.len;
+        length+=item.data.len;
     });
-    return groupAvg / fdata.value.data.length
+
+    return groupAvg /length
 });
 
 const SSG = computed(() => {
@@ -128,12 +133,15 @@ const SSG = computed(() => {
 
 const SSW = computed(() => {
     let sum=0;
-
+    
     fdata.value.data.forEach((item) => {
+        console.log('item',item);
         sum+=item.data.raw
             .map((eachraw) => (eachraw - item.data.avg) ** 2)
             .reduce((acc, cur) => acc + cur)
     });
+
+    console.log('sum',sum);
     return sum
 })
 

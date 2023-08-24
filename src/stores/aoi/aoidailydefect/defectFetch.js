@@ -22,11 +22,11 @@ export const UsedefectFetch = defineStore('useaoidailydefectfetch', () => {
     const defectList = ref(
         [
             { Defect: 'BU S1+S2', Process: 'LTHSEP1/LTHADF1' },
-            { Defect: 'BU S3+S5+S6', Process: 'LTHSEP1' },
+            { Defect: 'BU S3+S5+S6', Process: 'LTHSEP1/LTHADF1' },
             { Defect: 'BU O1+O4', Process: 'LTHADF1/LTHDFV1' },
             { Defect: 'BU O2+O6', Process: 'PTHSAC1/AOIVRS1' },
             { Defect: 'BU O51/O52', Process: 'SAPECU1/PTHCUM1/SAPPEC1' },/////PTHCUM1/SAPPEC1
-            { Defect: 'BU A3+A4+A7', Process: 'PTHCUM1/PTHFCU1' },
+            { Defect: 'BU A3+A4+A7', Process: 'PTHCUM1/PTHFCU1/ABFMEC1' },
             { Defect: 'Core S4', Process: 'LTHDES1' },
             { Defect: 'BU O7', Process: 'SAPECU1' },
             { Defect: 'BU A5+A6', Process: 'LDLCOL1/LTHSEP1' }

@@ -25,11 +25,11 @@ export const UsedefectTable = defineStore('useaoidailydefecttable', () => {
     const columnList = ref(
         [
             { Defect: 'BU S1+S2', column: ['MachineLTHADF1', 'TimeLTHADF1','MachineLTHSEP1', 'TimeLTHSEP1', 'S1', 'S2', 'S1+S2'], title: ['Litho壓膜機台', 'CheckIn','Litho曝光機台', 'CheckIn', 'S1', 'S2', 'S1+S2'] },
-            { Defect: 'BU S3+S5+S6', column: ['MachineLTHSEP1', 'TimeLTHSEP1', 'S3', 'S5', 'S6', 'S3+S5+S6'], title: ['Litho曝光機台', 'CheckIn', 'S3', 'S5', 'S6', 'S3+S5+S6'] },
+            { Defect: 'BU S3+S5+S6', column: ['MachineLTHSEP1', 'TimeLTHSEP1','MachineLTHADF1', 'TimeLTHADF1', 'S3', 'S5', 'S6', 'S3+S5+S6'], title: ['Litho曝光機台', 'CheckIn','Litho壓膜機台', 'CheckIn', 'S3', 'S5', 'S6', 'S3+S5+S6'] },
             { Defect: 'BU O1+O4', column: ['MachineLTHADF1', 'TimeLTHADF1', 'MachineLTHDFV1', 'TimeLTHDFV1', 'O1', 'O4','O1+O4'], title: ['Litho壓膜機台', 'CheckIn', 'Litho顯影機台', 'CheckIn', 'O1', 'O4','O1+O4'] },
             { Defect: 'BU O2+O6', column: ['MachinePTHSAC1', 'TimePTHSAC1','MachineAOIVRS1', 'TimeAOIVRS1','O2', 'O6','O2+O6'], title: ['增層去膜蝕刻機台', 'CheckIn','VRS機台','CheckIn','O2', 'O6','O2+O6'] },
             { Defect: 'BU O51/O52', column: ['MachineSAPECU1', 'TimeSAPECU1', 'MachinePTHCUM1', 'TimePTHCUM1', 'MachineSAPPEC1', 'TimeSAPPEC1', 'O51', 'O52'], title: ['化銅機台', 'CheckIn', 'ASM機台', 'CheckIn', '板清機台', 'CheckIn', 'O51', 'O52'] },////'SAPECU1/PTHCUM1/SAPPEC1
-            { Defect: 'BU A3+A4+A7', column: ['MachinePTHCUM1', 'TimePTHCUM1', 'MachinePTHFCU1', 'TimePTHFCU1', 'CoreO4O7', 'BU2FBA3A4', 'A3A4 w/o O4O7', 'A3', 'A4', 'A7', 'A3+A4+A7'], title: ['ASM機台', 'CheckIn', 'UVCP機台', 'CheckIn', 'CoreO4O7', 'BU2FBA3A4', 'A3A4 w/o O4O7', 'A3', 'A4', 'A7', 'A3+A4+A7'] },
+            { Defect: 'BU A3+A4+A7', column: ['MachinePTHCUM1', 'TimePTHCUM1', 'MachinePTHFCU1', 'TimePTHFCU1','MachineABFMEC1', 'TimeABFMEC1', 'CoreO4O7', 'BU2FBA3A4', 'A3A4 w/o O4O7', 'A3', 'A4', 'A7', 'A3+A4+A7'], title: ['ASM機台', 'CheckIn', 'UVCP機台', 'CheckIn','MEC機台', 'CheckIn','CoreO4O7', 'BU2FBA3A4', 'A3A4 w/o O4O7', 'A3', 'A4', 'A7', 'A3+A4+A7'] },
             { Defect: 'Core S4', column: ['MachineLTHDES1','TimeLTHDES1','S4'],title:['內層線路蝕刻機台','CheckIn','S4'] },
             { Defect: 'BU O7', column: ['MachineSAPPEC1', 'TimeSAPPEC1', 'O7'], title: ['板清機台', 'CheckIn', 'O7'] },
             { Defect: 'BU A5+A6', column: ['MachineLDLCOL1', 'TimeLDLCOL1', 'MachineLTHSEP1', 'TimeLTHSEP1', 'A5', 'A6', 'A5+A6'], title: ['雷射機台', 'CheckIn', '曝光機台', 'CheckIn', 'A5', 'A6', 'A5+A6'] }////'LDLCOL1/LTHSEP1'

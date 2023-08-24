@@ -18,9 +18,11 @@
     "jstat": "^1.9.6",
     "pinia": "^2.0.32",
     "sass": "^1.65.1",
+    "sass-loader": "^13.3.2",
     "vite-plugin-require-transform": "^1.0.12",
     "vue": "^3.2.47",
     "vue-json-excel": "^0.3.0",
+    "vue-matomo": "^4.2.0",
     "vue-router": "^4.1.6",
     "xlsx": "^0.18.5"
   },

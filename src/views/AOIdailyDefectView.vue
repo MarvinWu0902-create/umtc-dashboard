@@ -54,10 +54,10 @@
 
         <div v-else-if="defectStatus !== 'Slanting' && processStatus === 'Slanting' && filterData.length > 0">
             <div class="container d-flex flex-column flex-wrap justify-content-center" v-if="radioItem === 'machine'">
-                <div class="d-flex flex-wrap justify-content-center m-3 shadow" v-for="process of processAry">
+                <div class="d-flex flex-wrap m-3 shadow process-padding" v-for="process of processAry">
                     <!--[PTHCUM1,PTHFCU1]-->
 
-                    <defectHC v-for="machine of getfilterMachine(process)" :process="process" :machine="machine"
+                    <defectHC class="my-3 mx-3 shadow-sm" v-for="machine of getfilterMachine(process)" :process="process" :machine="machine"
                         :max="anovaAry" :key="process + machine" />
                     <div class="w-100 d-flex justify-content-end">
                         <defectAnova class="w-30" :anovaData="anovaAry" :process="process" :key="process"
@@ -67,7 +67,7 @@
             </div>
             <!-- A3+A4+A7 PTHCUM1#1,A3+A4+A7 PTHCUM1#2,A3+A4+A7 PTHFCU1#1,A3+A4+A7 PTHFCU1#2 -->
             <div v-else>
-                <defectHC v-for="process of processAry" :process="process" :max="anovaAry" :key="process" />
+                <defectHC class="my-5" v-for="process of processAry" :process="process" :max="anovaAry" :key="process" />
             </div>
             <!-- BU A3+A4+A7  PTHCUM1/PTHFCU1 (畫process張)-->
         </div>
@@ -77,8 +77,8 @@
             <div class="container d-flex flex-column flex-wrap justify-content-center" v-if="radioItem === 'machine'">
 
                 <div class="d-flex flex-column justify-content-center bg-white mb-3" v-for="process of processAry">
-                    <div class="d-flex flex-wrap justify-content-center m-3 px-2 shadow" v-for="defect of defectAry">
-                        <defectHC v-for="machine of getfilterMachine(process)" :process="process" :defect="defect"
+                    <div class="d-flex flex-wrap m-3 shadow process-padding" v-for="defect of defectAry">
+                        <defectHC class="my-3 mx-3 shadow-sm" v-for="machine of getfilterMachine(process)" :process="process" :defect="defect"
                             :max="anovaAry" :machine="machine" :key="process + defect + machine" />
                         <div class="w-100 d-flex justify-content-end">
                             <defectAnova class="w-30" :anovaData="anovaAry" :process="process" :defect="defect"
@@ -96,7 +96,7 @@
 
             <div v-else>
                 <div v-for="process of processAry">
-                    <defectHC v-for="defect of defectAry" :process="process" :defect="defect" :max="anovaAry"
+                    <defectHC class="my-5" v-for="defect of defectAry" :process="process" :defect="defect" :max="anovaAry"
                         :key="defect + process" />
                 </div>
             </div>
@@ -110,18 +110,20 @@
 
         <div v-else-if="filterData.length > 0">
 
-            <div class="container d-flex flex-wrap justify-content-around mx-2 shadow" v-if="radioItem === 'machine'">
-                <defectHC v-for="machine of machineAry" :machine="machine" :max="anovaAry" :key="machine" />
+            <div class="container d-flex flex-wrap m-3 shadow process-padding" v-if="radioItem === 'machine'">
+                <defectHC class="my-3 mx-3 shadow-sm" v-for="machine of machineAry" :machine="machine" :max="anovaAry" :key="machine" />
+
                 <div class="w-100 d-flex justify-content-end">
                     <defectAnova class="w-30" :anovaData="anovaAry"
                         v-show="machineAry.length > 1 && selectOptions.length !== 0" />
                 </div>
+
             </div>
 
 
             <!-- S1+S2 LTHADF1 依據站點畫機台數圖 -->
             <div v-else>
-                <defectHC :max="anovaAry" />
+                <defectHC class="my-5" :max="anovaAry" />
             </div>
             <!-- S1+S2 LTHADF1 單純一張圖 -->
         </div>
@@ -140,6 +142,7 @@ import { ref, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
 import pinia from "@/stores/index.js";
 import 'bootstrap/dist/css/bootstrap.css';
+
 // import 'bootstrap';
 
 import defectNav from '../components/aoi/aoidailydefect/defectNav.vue';
@@ -210,5 +213,10 @@ onMounted(() => {
     position: absolute;
     top: -4px;
     left: 15px;
+}
+
+.process-padding{
+padding-left: 70px;
+padding-right:70px;
 }
 </style>

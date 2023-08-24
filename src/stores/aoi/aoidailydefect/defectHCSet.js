@@ -159,7 +159,7 @@ export const UsedefectHC = defineStore('useaoidailydefecthc', () => {
 
                         let rawData = baseData
                             .filter((item) => item[`Machine${processAry.value[p]}`] === baseMachine[m])
-                            .map((item) => Number(item[defectAry.value[d]] === '.' ? 0 : item[defectAry.value[d]]) * 100);
+                            .map((item) => Number(item[defectAry.value[d]] === '.' ? 0 : item[defectAry.value[d]]));
                         machineObj.data.raw = rawData;
                         machineObj.data.len = rawData.length;
                         machineObj.data.avg = rawData.reduce((acc, cur) => acc + cur) / rawData.length;
@@ -192,7 +192,7 @@ export const UsedefectHC = defineStore('useaoidailydefecthc', () => {
                             for (let i = 0; i < defectAry.value.length; i++) {////['S1','S2']
                                 item[defectAry.value[i]] === '.'
                                     ? rate += 0
-                                    : rate += Number(item[defectAry.value[i]]) * 100
+                                    : rate += Number(item[defectAry.value[i]])
                             };
                             return rate
                         });
