@@ -55,10 +55,26 @@
                         {{ eachData.Remark }}
                     </td>
                 </tr>
+
+                <tr>
+                    <td colspan="13">
+                        產出<strong>{{ filterTotaltableData.length }}</strong>批，Trigger:<strong>{{ tableInfo.tri
+                        }}</strong>批，平均良率:<strong>{{ (tableInfo.avg * 100).toFixed(1) }}%</strong>
+                    </td>
+                </tr>
+
+            </tbody>
+            <tbody v-else-if="slicefilterAry.length === 0 && filterTotaltableData.length !== 0">
+                <tr>
+                    <td colspan="13">
+                        產出<strong>{{ filterTotaltableData.length }}</strong>批，平均良率:<strong>{{ (tableInfo.avg *
+                            100).toFixed(1) }}%</strong>
+                    </td>
+                </tr>
             </tbody>
             <tbody v-else>
                 <tr>
-                    <td colspan="21">沒有資料</td>
+                    <td colspan="13">沒有資料</td>
                 </tr>
             </tbody>
         </table>
@@ -96,7 +112,7 @@ const useflifetch = UsefliFetch(pinia);
 const { filterTable } = storeToRefs(useflifetch);
 
 const useflitableset = UsefliTableSet(pinia);
-const { slicefilterAry } = storeToRefs(useflitableset);
+const { filterTotaltableData,slicefilterAry,tableInfo } = storeToRefs(useflitableset);
 
 // const usefliclassstore = UsefliClassStore(pinia);
 // const { seriesDataProcess } = usefliclassstore;

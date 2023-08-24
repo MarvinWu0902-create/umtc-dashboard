@@ -1,5 +1,5 @@
 <template>
-    <div class="btn">
+    <div class="d-flex justify-content-center align-items-center">
 <n-date-picker v-model:value="range" type="datetimerange" clearable />
 <n-button strong secondary type="warning" @click="clickHandler">查詢</n-button>
     </div>
@@ -46,15 +46,9 @@ const clickHandler = () => {
 </script>
 
 <style scoped>
-.btn{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 10px;
-}
+
 .n-date-picker{
-    width:30%;
+    width: 50%;
     margin: 10px;
-    
 }
 </style>

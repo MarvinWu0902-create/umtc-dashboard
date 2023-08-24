@@ -1,6 +1,6 @@
 import axios from "axios";
 const aoiRequest=axios.create({
-    baseURL:'http://10.22.94.222/api/fli/'
+    baseURL:'http://wymana1649:88/api/fli/'
 });
 ////// 10.22.94.222
 

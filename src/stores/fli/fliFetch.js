@@ -10,24 +10,24 @@ export const UsefliFetch = defineStore('useflifetch', () => {
         et: '',
     });
     const tableData=ref([]);
+    const trendData=ref([]);
 
 
     const flifetchData = async () => {
         try {
             const res = await apiGetfliData(fli_params.value.st, fli_params.value.et);
             console.log('res.data', res.data);
-            tableData.value=res.data;
+            tableData.value=res.data[0];
+            trendData.value=res.data[1];
         } catch (error) {
             console.log('err', error);
         }
     };
 
 
-    const filterTable = computed(() => {
-        return tableData.value.filter((item) => item.Yield - item.Triger < 0);
-    })
+
 
     return {
-        flifetchData,fli_params,tableData,filterTable
+        flifetchData,fli_params,tableData,trendData
     }
 });

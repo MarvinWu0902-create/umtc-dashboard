@@ -1,12 +1,14 @@
 <template>
     <div>
+        <fliPick/>
         <TimeBtnSearch/>
         <div class="textblock">
             <p class="title">FLI Daily Low Yield</p>
             <p class="titie_sub">下表預設為YIP當日晨會FLI Trigger批號,如要查詢過往資料,上列條件選擇後,在點選查詢即可</p>
         </div>
+        <fliHC/>
         <TableitemSelect/>
-        <Table />
+        <Table/>
         <TablebtnSelect/>
         <!-- 要補上Focus Product -->
     </div>
@@ -16,6 +18,10 @@
 import { ref,onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import pinia from "../stores/index.js";
+
+
+import fliPick from '@/components/fli/fliPick.vue';
+import fliHC from '../components/fli/fliHC.vue';
 
 import TimeBtnSearch from '@/components/fli/TimeBtnSearch.vue';
 import Table from '@/components/fli/Table.vue';

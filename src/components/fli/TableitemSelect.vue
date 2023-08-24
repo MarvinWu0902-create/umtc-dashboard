@@ -19,10 +19,10 @@ import { UsefliTableSet } from '@/stores/fli/fliTableSet.js';
 import { UsefliFetch } from '@/stores/fli/fliFetch.js';
 
 const useflitableset = UsefliTableSet(pinia);
-const useflifetch = UsefliFetch(pinia);
+// const useflifetch = UsefliFetch(pinia);
 
-const {ItemSelect,TotalItem,PageItem,ItemStr} = storeToRefs(useflitableset);
-const {filterTable} = storeToRefs(useflifetch);
+const {filterTable,ItemSelect,TotalItem,PageItem,ItemStr} = storeToRefs(useflitableset);
+// const {filterTable} = storeToRefs(useflifetch);
 
 // console.log(ItemResult.value,TotalItem.value,PageItem.value,ItemStr.value )
 watch(TotalItem,(newval,oldval)=>{
